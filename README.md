@@ -27,7 +27,7 @@ The explicit framework search path is needed by the current standalone Command L
 
 ## Background operation and menu bar
 
-The red window close button closes the configuration window but intentionally leaves the companion process running so Joy-Con mappings can continue while another app is frontmost. While the process is active, the menu bar displays a controller icon with:
+Joy-Con Codex Controller runs as a menu-bar accessory, so it does not occupy a permanent Dock position. The red window close button closes the configuration window but intentionally leaves the companion process running so Joy-Con mappings can continue while another app is frontmost. While the process is active, the menu bar displays a controller icon with:
 
 - Joy-Con connection status
 - Test mode, live output, or Accessibility-blocked status
@@ -63,15 +63,16 @@ ZL and ZR are internal Fn controls. They post no keyboard event, and the Fn laye
 | SR | `⌘⇧]` — Next chat | `⌘]` — Forward |
 | A / left D-pad right | `Return` — Enter / confirm | `⌘⌥B` — Toggle side panel |
 | B / left D-pad down | `Escape` — Cancel or dismiss | `⌘J` — Toggle bottom panel |
-| X / left D-pad up | `⌘N` — New chat | `⌘⇧P` — Command menu |
+| X / left D-pad up | `⌘⌥S` — New side chat | `⌘W` — Close chat |
 | Y / left D-pad left | `Delete` — Delete previous character | `⌘B` — Toggle sidebar |
+| Plus / Minus | `⌘N` — New chat | Disabled |
 | L or R | Hold `⌃⇧D` — Voice dictation | Same as Default |
 | ZL or ZR | Function layer | Function layer |
 | Stick up/down/left/right | Matching arrow-key tap | Same as Default |
-| Plus, Minus, Home, Capture | Disabled | Disabled |
+| Home, Capture | Disabled | Disabled |
 | Stick press | Disabled | Disabled |
 
-These values are starter defaults, not a forced update to an existing profile. Rebuilding or relaunching the app leaves saved mappings in place. To adopt this exact table, choose **Restore Defaults**, which replaces and saves every current mapping; otherwise edit only the desired slots.
+These values are the 0.1.1 starter defaults, not a forced update to an existing profile. Updating or relaunching the app leaves saved mappings in place. To adopt this exact table, choose **Restore Defaults**, which replaces and saves every current mapping; otherwise edit only the desired slots.
 
 L and R share one held dictation chord: the first voice control posts key-down, and the final released voice control posts key-up. Controller disconnect, profile changes, test mode, and ordinary application termination also release any active hold.
 
@@ -81,7 +82,7 @@ The mapping editor shows Default and Fn slots separately. Disabled slots say **D
 
 The editor also includes an interactive portrait Joy-Con diagram. Selecting a mapping or clicking a control on the diagram highlights its physical location in yellow. Pressing a connected Joy-Con control selects that mapping and shows a green live-input highlight, including individual stick directions and the duplicated SL/SR rail positions.
 
-These are ordinary keyboard events delivered to whichever application is frontmost. For example, `⌘N`, `⌘B`, or `⌘[` can mean something different in another application. Focus ChatGPT before enabling live output; the companion does not automatically activate it or use a Codex API.
+These are ordinary keyboard events delivered to whichever application is frontmost. For example, `⌘⌥S`, `⌘W`, or `⌘N` can mean something different in another application. Focus ChatGPT before enabling live output; the companion does not automatically activate it or use a Codex API.
 
 On first launch, test mode is enabled and prevents every mapping from posting keyboard events. To use live output, turn off test mode and grant Accessibility permission. Because background controller monitoring remains active while the process is running, live mappings can continue after the main window is closed; use `⌘Q` or the app’s Quit command to stop the process completely.
 

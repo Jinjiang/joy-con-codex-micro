@@ -11,6 +11,17 @@ The system SHALL display a menu-bar item for as long as the companion process is
 - **WHEN** the user closes the last application window using its close control
 - **THEN** the companion process continues running and its menu-bar item remains available
 
+### Requirement: Operate without a persistent Dock icon
+The system SHALL run as a menu-bar accessory without occupying a Dock position while the companion process remains active.
+
+#### Scenario: Main window is open
+- **WHEN** the application launches or the user opens the main controller window from the menu bar
+- **THEN** the window is usable and the application does not add a persistent Dock icon
+
+#### Scenario: Main window is closed
+- **WHEN** the user closes the main controller window
+- **THEN** the Dock remains free of the companion icon while the menu-bar item and controller monitoring remain active
+
 ### Requirement: Report companion status
 The menu-bar interface SHALL display supported Joy-Con connection state and SHALL distinguish test mode, live output, and live output blocked by missing Accessibility trust.
 

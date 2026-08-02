@@ -396,6 +396,12 @@ public extension MappingProfile {
         let newChat = MappingAction.tap(
             Shortcut(keyCode: 45, displayLabel: "N", modifiers: [.command])
         )
+        let newSideChat = MappingAction.tap(
+            Shortcut(keyCode: 1, displayLabel: "S", modifiers: [.command, .option])
+        )
+        let closeChat = MappingAction.tap(
+            Shortcut(keyCode: 13, displayLabel: "W", modifiers: [.command])
+        )
         let back = MappingAction.tap(
             Shortcut(keyCode: 33, displayLabel: "[", modifiers: [.command])
         )
@@ -413,9 +419,6 @@ public extension MappingProfile {
         )
         let toggleBottomPanel = MappingAction.tap(
             Shortcut(keyCode: 38, displayLabel: "J", modifiers: [.command])
-        )
-        let commandMenu = MappingAction.tap(
-            Shortcut(keyCode: 35, displayLabel: "P", modifiers: [.command, .shift])
         )
         let toggleSidebar = MappingAction.tap(
             Shortcut(keyCode: 11, displayLabel: "B", modifiers: [.command])
@@ -437,13 +440,15 @@ public extension MappingProfile {
         let primary: [ControllerInput: MappingAction] = [
             .buttonA: enter,
             .buttonB: escape,
-            .buttonX: newChat,
+            .buttonX: newSideChat,
             .buttonY: delete,
+            .buttonPlus: newChat,
+            .buttonMinus: newChat,
             .buttonSL: previousChat,
             .buttonSR: nextChat,
             .dpadRight: enter,
             .dpadDown: escape,
-            .dpadUp: newChat,
+            .dpadUp: newSideChat,
             .dpadLeft: delete,
             .leftShoulder: dictate,
             .rightShoulder: dictate,
@@ -454,13 +459,13 @@ public extension MappingProfile {
         let function: [ControllerInput: MappingAction] = [
             .buttonA: toggleSidePanel,
             .buttonB: toggleBottomPanel,
-            .buttonX: commandMenu,
+            .buttonX: closeChat,
             .buttonY: toggleSidebar,
             .buttonSL: back,
             .buttonSR: forward,
             .dpadRight: toggleSidePanel,
             .dpadDown: toggleBottomPanel,
-            .dpadUp: commandMenu,
+            .dpadUp: closeChat,
             .dpadLeft: toggleSidebar,
             .leftShoulder: dictate,
             .rightShoulder: dictate,
@@ -497,6 +502,9 @@ public enum CodexShortcutCatalog {
         Shortcut(keyCode: 36, displayLabel: "Return"): "Enter / confirm",
         Shortcut(keyCode: 53, displayLabel: "Escape"): "Cancel or dismiss",
         Shortcut(keyCode: 45, displayLabel: "N", modifiers: [.command]): "New chat",
+        Shortcut(keyCode: 1, displayLabel: "S", modifiers: [.command, .option]):
+            "New side chat",
+        Shortcut(keyCode: 13, displayLabel: "W", modifiers: [.command]): "Close chat",
         Shortcut(keyCode: 33, displayLabel: "[", modifiers: [.command]): "Back",
         Shortcut(keyCode: 30, displayLabel: "]", modifiers: [.command]): "Forward",
         Shortcut(keyCode: 33, displayLabel: "[", modifiers: [.command, .shift]):

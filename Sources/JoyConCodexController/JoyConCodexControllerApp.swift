@@ -1,11 +1,19 @@
+import AppKit
 import SwiftUI
 
 enum AppSceneID {
     static let mainWindow = "main-controller-window"
 }
 
+final class AppDelegate: NSObject, NSApplicationDelegate {
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        NSApplication.shared.setActivationPolicy(.accessory)
+    }
+}
+
 @main
 struct JoyConCodexControllerApp: App {
+    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @StateObject private var model = AppModel()
 
     var body: some Scene {

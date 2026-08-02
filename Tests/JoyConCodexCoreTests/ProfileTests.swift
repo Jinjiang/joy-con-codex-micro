@@ -18,14 +18,17 @@ struct ProfileTests {
         #expect(shortcut(profile, .buttonA, .function)?.formatted == "⌘⌥B")
         #expect(shortcut(profile, .buttonB, .primary)?.formatted == "Escape")
         #expect(shortcut(profile, .buttonB, .function)?.formatted == "⌘J")
-        #expect(shortcut(profile, .buttonX, .primary)?.formatted == "⌘N")
-        #expect(shortcut(profile, .buttonX, .function)?.formatted == "⌘⇧P")
+        #expect(shortcut(profile, .buttonX, .primary)?.formatted == "⌘⌥S")
+        #expect(shortcut(profile, .buttonX, .function)?.formatted == "⌘W")
         #expect(shortcut(profile, .buttonY, .primary)?.formatted == "Delete")
         #expect(shortcut(profile, .buttonY, .function)?.formatted == "⌘B")
+        #expect(shortcut(profile, .buttonPlus, .primary)?.formatted == "⌘N")
+        #expect(shortcut(profile, .buttonMinus, .primary)?.formatted == "⌘N")
 
         #expect(shortcut(profile, .dpadRight, .primary)?.formatted == "Return")
         #expect(shortcut(profile, .dpadDown, .primary)?.formatted == "Escape")
-        #expect(shortcut(profile, .dpadUp, .primary)?.formatted == "⌘N")
+        #expect(shortcut(profile, .dpadUp, .primary)?.formatted == "⌘⌥S")
+        #expect(shortcut(profile, .dpadUp, .function)?.formatted == "⌘W")
         #expect(shortcut(profile, .dpadLeft, .primary)?.formatted == "Delete")
 
         #expect(shortcut(profile, .buttonSL, .primary)?.formatted == "⌘⇧[")
@@ -42,7 +45,6 @@ struct ProfileTests {
 
         #expect(shortcut(profile, .rightStickUp, .primary)?.formatted == "Up Arrow")
         #expect(shortcut(profile, .leftStickLeft, .function)?.formatted == "Left Arrow")
-        #expect(profile.mapping(for: .buttonPlus)?.primaryAction == nil)
         #expect(profile.mapping(for: .buttonHome)?.functionAction == nil)
         #expect(profile.mapping(for: .rightStickPress)?.primaryAction == nil)
     }
@@ -53,6 +55,20 @@ struct ProfileTests {
             CodexShortcutCatalog.description(
                 for: Shortcut(keyCode: 45, displayLabel: "N", modifiers: [.command])
             ) == "New chat"
+        )
+        #expect(
+            CodexShortcutCatalog.description(
+                for: Shortcut(
+                    keyCode: 1,
+                    displayLabel: "S",
+                    modifiers: [.command, .option]
+                )
+            ) == "New side chat"
+        )
+        #expect(
+            CodexShortcutCatalog.description(
+                for: Shortcut(keyCode: 13, displayLabel: "W", modifiers: [.command])
+            ) == "Close chat"
         )
         #expect(
             CodexShortcutCatalog.description(

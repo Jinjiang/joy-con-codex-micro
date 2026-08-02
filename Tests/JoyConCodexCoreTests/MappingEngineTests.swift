@@ -76,8 +76,10 @@ struct MappingEngineTests {
         #expect(!engine.isFunctionLayerActive)
         let primary = process(&engine, event(.buttonX, .pressed), emitter: emitter)
 
-        #expect(modified.shortcut?.formatted == "⌘⇧P")
-        #expect(primary.shortcut?.formatted == "⌘N")
+        #expect(modified.functionDescription == "Close chat")
+        #expect(modified.shortcut?.formatted == "⌘W")
+        #expect(primary.functionDescription == "New side chat")
+        #expect(primary.shortcut?.formatted == "⌘⌥S")
     }
 
     @Test("Pressing Fn after a target does not retroactively change its action")
@@ -161,7 +163,7 @@ struct MappingEngineTests {
         var engine = MappingEngine()
         let emitter = RecordingEmitter()
 
-        let result = process(&engine, event(.buttonPlus, .pressed), emitter: emitter)
+        let result = process(&engine, event(.buttonHome, .pressed), emitter: emitter)
 
         #expect(result.disposition == .disabled)
         #expect(emitter.emissions.isEmpty)

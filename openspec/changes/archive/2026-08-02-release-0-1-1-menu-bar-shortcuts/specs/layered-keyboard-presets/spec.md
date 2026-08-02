@@ -1,8 +1,4 @@
-## Purpose
-
-Define the keyboard-only single-Joy-Con starter layout, internal function layer, hold-to-dictate lifecycle, and human-readable Codex shortcut descriptions.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Starter profile uses the agreed two-layer layout
 The system SHALL provide a keyboard-only starter profile whose Default and Fn actions match the agreed single-Joy-Con layout.
@@ -22,28 +18,6 @@ The system SHALL provide a keyboard-only starter profile whose Default and Fn ac
 #### Scenario: User presses a deliberately unused control
 - **WHEN** Home, Capture, or stick press is pressed
 - **THEN** no keyboard event is emitted
-
-### Requirement: ZL and ZR operate as an internal function layer
-The system SHALL make the Fn layer active while at least one of ZL or ZR is held and SHALL emit no macOS key event for either function control.
-
-#### Scenario: Both function controls overlap
-- **WHEN** ZL and ZR are both held and one of them is released
-- **THEN** the Fn layer remains active until the remaining function control is released
-
-#### Scenario: Function control is pressed after a target input
-- **WHEN** a target input has already triggered its Default action and ZL or ZR is then pressed
-- **THEN** the completed target action is not changed or repeated
-
-### Requirement: L and R provide hold-to-dictate
-The system SHALL use either L or R to hold `Control+Shift+D` and SHALL release the shortcut only after every held voice control is released.
-
-#### Scenario: One voice control is held
-- **WHEN** L or R is pressed and later released in live mode
-- **THEN** the system posts one `Control+Shift+D` key-down on press and one matching key-up on release
-
-#### Scenario: Voice controls overlap
-- **WHEN** L and R are both held and one is released
-- **THEN** the dictation shortcut remains held until the final voice control is released
 
 ### Requirement: Known shortcuts show a Codex function description
 The system SHALL display a human-readable function description whenever an action chord exactly matches a known ChatGPT desktop shortcut.

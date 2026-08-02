@@ -1,5 +1,6 @@
 {
+  "applicationVersion": "0.1.1",
   "applicationSupportDirectory": "JoyConCodexController",
-  "profileSchemaVersion": 1,
+  "profileSchemaVersion": 2,
   "project": "joy-con-codex-controller"
 }

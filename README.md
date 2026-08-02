@@ -8,6 +8,16 @@ A native macOS companion that turns an already paired Nintendo Switch Joy-Con in
 
 The companion is local and framework-only: no Codex API or network service is required.
 
+<p align="center">
+  <img src="Assets/README/joy-con-codex-controller-poster.png" alt="Joy-Con Codex Controller default and function-layer shortcut mappings" width="820">
+</p>
+
+## App interface
+
+<p align="center">
+  <img src="Assets/README/joy-con-codex-controller-app.png" alt="Joy-Con Codex Controller macOS configuration window" width="920">
+</p>
+
 ## Requirements
 
 - macOS 14 or newer

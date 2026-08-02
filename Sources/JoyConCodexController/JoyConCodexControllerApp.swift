@@ -12,7 +12,7 @@ struct JoyConCodexControllerApp: App {
         Window("Joy-Con Codex Controller", id: AppSceneID.mainWindow) {
             ContentView()
                 .environmentObject(model)
-                .frame(minWidth: 840, minHeight: 680)
+                .frame(minWidth: 1_040, minHeight: 760)
         }
         .windowStyle(.titleBar)
 

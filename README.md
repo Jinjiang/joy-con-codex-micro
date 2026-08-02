@@ -75,6 +75,8 @@ Stick directions are edge-triggered and do not auto-repeat while held. Activatio
 
 The mapping editor shows Default and Fn slots separately. Disabled slots say **Disabled**, tap and hold behavior is identified, and exact known ChatGPT chords include a plain-language description. Custom chords remain editable but receive no invented ChatGPT meaning.
 
+The editor also includes an interactive portrait Joy-Con diagram. Selecting a mapping or clicking a control on the diagram highlights its physical location in yellow. Pressing a connected Joy-Con control selects that mapping and shows a green live-input highlight, including individual stick directions and the duplicated SL/SR rail positions.
+
 These are ordinary keyboard events delivered to whichever application is frontmost. For example, `⌘N`, `⌘B`, or `⌘[` can mean something different in another application. Focus ChatGPT before enabling live output; the companion does not automatically activate it or use a Codex API.
 
 On first launch, test mode is enabled and prevents every mapping from posting keyboard events. To use live output, turn off test mode and grant Accessibility permission. Because background controller monitoring remains active while the process is running, live mappings can continue after the main window is closed; use `⌘Q` or the app’s Quit command to stop the process completely.

@@ -4,6 +4,7 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject private var model: AppModel
     @State private var confirmingReset = false
+    @State private var selectedMappingInput: ControllerInput? = .buttonA
 
     var body: some View {
         ScrollView {
@@ -27,6 +28,10 @@ struct ContentView: View {
         }
         .onAppear {
             model.refreshAccessibilityPermission()
+        }
+        .onChange(of: model.recentEvent) { _, event in
+            guard event?.phase == .pressed else { return }
+            selectedMappingInput = event?.input
         }
     }
 
@@ -212,12 +217,38 @@ struct ContentView: View {
 
                 Divider()
 
-                LazyVStack(spacing: 0) {
-                    ForEach(model.profile.mappings) { mapping in
-                        MappingRow(mapping: mapping) {
-                            model.update($0)
+                HStack(alignment: .top, spacing: 18) {
+                    mappingPicker
+
+                    Divider()
+
+                    if
+                        let selectedInput = selectedMappingInput,
+                        let mapping = model.profile.mapping(for: selectedInput)
+                    {
+                        VStack(spacing: 14) {
+                            JoyConDiagramView(
+                                selectedInput: selectedInput,
+                                activeInput: activeDiagramInput
+                            ) { input in
+                                selectedMappingInput = input
+                            }
+                            .frame(height: 410)
+
+                            Divider()
+
+                            MappingRow(mapping: mapping) {
+                                model.update($0)
+                            }
                         }
-                        Divider()
+                        .frame(maxWidth: .infinity, alignment: .top)
+                    } else {
+                        ContentUnavailableView(
+                            "Select a Joy-Con control",
+                            systemImage: "gamecontroller",
+                            description: Text("Choose a mapping from the list or click it on the diagram.")
+                        )
+                        .frame(maxWidth: .infinity, minHeight: 540)
                     }
                 }
             }
@@ -225,6 +256,71 @@ struct ContentView: View {
         } label: {
             Label("Shortcut mappings", systemImage: "switch.2")
         }
+    }
+
+    private var mappingPicker: some View {
+        List(selection: $selectedMappingInput) {
+            Section("Right Joy-Con") {
+                mappingChoices(for: [
+                    .buttonA, .buttonB, .buttonX, .buttonY, .buttonPlus, .buttonHome,
+                ])
+            }
+
+            Section("Left Joy-Con") {
+                mappingChoices(for: [
+                    .dpadUp, .dpadDown, .dpadLeft, .dpadRight, .buttonMinus, .buttonCapture,
+                ])
+            }
+
+            Section("Side rail") {
+                mappingChoices(for: [.buttonSL, .buttonSR])
+            }
+
+            Section("Shoulders") {
+                mappingChoices(for: [
+                    .leftShoulder, .leftTrigger, .rightShoulder, .rightTrigger,
+                ])
+            }
+
+            Section("Left stick") {
+                mappingChoices(for: [
+                    .leftStickPress,
+                    .leftStickUp,
+                    .leftStickDown,
+                    .leftStickLeft,
+                    .leftStickRight,
+                ])
+            }
+
+            Section("Right stick") {
+                mappingChoices(for: [
+                    .rightStickPress,
+                    .rightStickUp,
+                    .rightStickDown,
+                    .rightStickLeft,
+                    .rightStickRight,
+                ])
+            }
+        }
+        .listStyle(.sidebar)
+        .scrollContentBackground(.hidden)
+        .frame(width: 238, height: 640)
+        .background(Color(nsColor: .controlBackgroundColor).opacity(0.35), in: RoundedRectangle(cornerRadius: 10))
+    }
+
+    @ViewBuilder
+    private func mappingChoices(for inputs: [ControllerInput]) -> some View {
+        ForEach(inputs) { input in
+            if let mapping = model.profile.mapping(for: input) {
+                MappingListItem(mapping: mapping)
+                    .tag(input)
+            }
+        }
+    }
+
+    private var activeDiagramInput: ControllerInput? {
+        guard let event = model.recentEvent, event.phase == .pressed else { return nil }
+        return event.input
     }
 
     private var recentInputText: String {
@@ -267,6 +363,28 @@ struct ContentView: View {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
+private struct MappingListItem: View {
+    let mapping: InputMapping
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 3) {
+            Text(mapping.input.displayName)
+                .font(.body.weight(.medium))
+            Text(summary)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .lineLimit(1)
+        }
+        .padding(.vertical, 3)
+    }
+
+    private var summary: String {
+        let primary = mapping.primaryAction?.formatted ?? "Disabled"
+        let function = mapping.functionAction?.formatted ?? "Disabled"
+        return "Default: \(primary) · Fn: \(function)"
     }
 }
 

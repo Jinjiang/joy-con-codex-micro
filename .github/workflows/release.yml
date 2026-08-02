@@ -1,0 +1,50 @@
+name: Release macOS application
+
+on:
+  push:
+    tags:
+      - "[0-9]+.[0-9]+.[0-9]+"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build and publish Apple silicon release
+    runs-on: macos-14
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out tagged source
+        uses: actions/checkout@v6
+
+      - name: Verify tag format
+        env:
+          RELEASE_VERSION: ${{ github.ref_name }}
+        run: |
+          if [[ ! "$RELEASE_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Expected an X.Y.Z release tag, got: $RELEASE_VERSION" >&2
+            exit 1
+          fi
+
+      - name: Run tests
+        run: swift test
+
+      - name: Build distributable application
+        env:
+          RELEASE_VERSION: ${{ github.ref_name }}
+        run: bash Scripts/build-release.sh "$RELEASE_VERSION"
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_VERSION: ${{ github.ref_name }}
+        run: |
+          archive="dist/JoyConCodexController-$RELEASE_VERSION-macOS-arm64.zip"
+          gh release create "$RELEASE_VERSION" \
+            "$archive#macOS Apple silicon application" \
+            "$archive.sha256#SHA-256 checksum" \
+            --verify-tag \
+            --title "Joy-Con Codex Controller $RELEASE_VERSION" \
+            --generate-notes \
+            --notes "Built for Apple silicon Macs. This build is ad-hoc signed and has not been notarized by Apple."

@@ -1,5 +1,9 @@
 # joy-con-codex-controller
 
+<p align="center">
+  <img src="Assets/AppIcon/AppIcon.png" alt="Joy-Con Codex Controller app icon" width="180">
+</p>
+
 A native macOS companion that turns an already paired Nintendo Switch Joy-Con into a configurable keyboard-shortcut controller.
 
 The companion is local and framework-only: no Codex API or network service is required.

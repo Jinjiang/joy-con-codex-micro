@@ -7,3 +7,12 @@ DerivedData/
 *.xcuserstate
 *.xccheckout
 *.moved-aside
+
+# Local distribution artifacts
+/dist/
+
+# Temporary tool and design state
+/tmp/
+
+# Work-in-progress generated artwork
+/Artwork/

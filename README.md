@@ -67,6 +67,8 @@ ZL and ZR are internal Fn controls. They post no keyboard event, and the Fn laye
 | Plus, Minus, Home, Capture | Disabled | Disabled |
 | Stick press | Disabled | Disabled |
 
+These values are starter defaults, not a forced update to an existing profile. Rebuilding or relaunching the app leaves saved mappings in place. To adopt this exact table, choose **Restore Defaults**, which replaces and saves every current mapping; otherwise edit only the desired slots.
+
 L and R share one held dictation chord: the first voice control posts key-down, and the final released voice control posts key-up. Controller disconnect, profile changes, test mode, and ordinary application termination also release any active hold.
 
 Stick directions are edge-triggered and do not auto-repeat while held. Activation uses a higher threshold than release so small threshold jitter does not retrigger arrow keys. Severe hardware drift can still produce input; leave the app in test mode while checking a worn controller.
@@ -87,7 +89,7 @@ Mappings are stored as versioned JSON at:
 
 Writes are atomic. If the stored file is unreadable or invalid, it is left untouched and the app loads starter defaults in memory. The same validated JSON format is used for import and export.
 
-Schema-v1 profiles are migrated in memory to schema 2. Existing enabled shortcuts remain Default tap actions, existing disabled mappings stay disabled, and their Fn slots remain disabled. The new layered starter is not silently applied over a saved profile; choose **Restore Defaults** to install it deliberately.
+Schema-v1 profiles are migrated in memory to schema 2. Existing enabled shortcuts remain Default tap actions, existing disabled mappings stay disabled, and their Fn slots remain disabled. Inputs that are entirely absent from an older profile are added with their current starter values so newly supported controls appear, but existing entries are never overwritten. Choose **Restore Defaults** only when you want to replace the complete saved profile with the current starter layout.
 
 ## Signing and distribution
 

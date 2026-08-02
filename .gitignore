@@ -1,0 +1,9 @@
+.DS_Store
+/.build
+/.swiftpm
+/*.xcodeproj
+xcuserdata/
+DerivedData/
+*.xcuserstate
+*.xccheckout
+*.moved-aside
